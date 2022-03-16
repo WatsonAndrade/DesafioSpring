@@ -42,7 +42,7 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado");
 	}
 	
-	@PostMapping(value = "/user")
+	@PostMapping("/user")
 	public ResponseEntity<Object> createUser(@RequestBody User userAccount){
 		if(userService.existsUserAccountByEmail(userAccount.getEmail())) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Email ja Cadastrado!");
