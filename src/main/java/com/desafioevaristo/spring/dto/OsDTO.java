@@ -20,5 +20,4 @@ public class OsDTO implements Serializable{
 		this.description  = os.getDescription();
 		this.status = os.getStatus();
 	}
-
 }
