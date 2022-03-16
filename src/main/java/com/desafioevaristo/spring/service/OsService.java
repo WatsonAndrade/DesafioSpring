@@ -43,4 +43,20 @@ public class OsService {
 	public Optional<Os> findById(Long id){
 		return osRepostitory.findById(id);
 	}
+	
+	public Os uptadeOs(Long id, Os os) {
+			User user = userRepository.findByEmail(os.getUser().getEmail());
+			os.setId(id);
+			os.setStatus(osRepostitory.findById(id).get().getStatus());
+			os.setUser(user);
+			os.setCreateDate(osRepostitory.findById(id).get().getCreateDate());
+			return osRepostitory.save(os);
+	}
+	
+	public void delete(Long id) {
+		Os os = new Os();
+		os.setId(id);
+		osRepostitory.deleteById(id);
+	}
+	
 }
