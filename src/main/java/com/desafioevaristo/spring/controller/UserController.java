@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,10 +44,18 @@ public class UserController {
 	@PostMapping(value = "/user")
 	public ResponseEntity<Object> createUser(@RequestBody User userAccount){
 		if(userService.existsUserAccountByEmail(userAccount.getEmail())) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("Usuário ja Cadastrado!");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Email ja Cadastrado!");
 		}
 			return ResponseEntity.status(HttpStatus.OK).body(userService.createUser(userAccount));
 	}
 	
-
+	@PutMapping("/user/{id}")
+	public ResponseEntity<Object> updateUser(@PathVariable Long id, @RequestBody User userAccount){
+		Boolean existsByid = userService.existsUserById(id);
+		if (existsByid) {
+			return ResponseEntity.status(HttpStatus.OK).body(userService.updateUser(id, userAccount));
+		}
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado!");
+	}
+	
 }
