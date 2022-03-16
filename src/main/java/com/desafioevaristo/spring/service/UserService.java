@@ -45,5 +45,10 @@ public class UserService {
 		return user;
 	}
 	
+	public void deleteUser(Long id) {
+		User user = new User();
+		user.setId(id);
+		userRepository.delete(user);
+	}
 	
 }
