@@ -1,5 +1,6 @@
 package com.desafioevaristo.spring.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ public class UserService {
 		return userRepository.findAll();
 	}
 	
-	public Boolean existsUserById(Long id) {
+	public boolean existsUserById(Long id) {
 		return userRepository.existsById(id);
 	}
 	
@@ -27,4 +28,13 @@ public class UserService {
 		return userRepository.findById(id);
 	}
 	
+	public boolean existsUserAccountByEmail(String email) {
+		return userRepository.existsUserByEmail(email);
+	}
+	
+	public User createUser(User userAccount) {
+		userAccount.setCreateDate(LocalDateTime.now());
+		User user = userRepository.save(userAccount);
+		return user;
+	}
 }
