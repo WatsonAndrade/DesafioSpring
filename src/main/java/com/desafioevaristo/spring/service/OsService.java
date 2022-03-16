@@ -4,9 +4,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.desafioevaristo.spring.dto.OsDTO;
 import com.desafioevaristo.spring.entities.Os;
 import com.desafioevaristo.spring.entities.OsStatus;
 import com.desafioevaristo.spring.entities.User;
@@ -22,8 +24,15 @@ public class OsService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	public List<Os> findAll(){
 		return osRepostitory.findAll();
+	}
+	
+	public OsDTO osDto(Os os) {
+		return modelMapper.map(os, OsDTO.class);
 	}
 	
 	public Os createOs(Os os) {

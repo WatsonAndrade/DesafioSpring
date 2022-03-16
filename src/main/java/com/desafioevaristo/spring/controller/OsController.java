@@ -1,6 +1,7 @@
 package com.desafioevaristo.spring.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.desafioevaristo.spring.dto.OsDTO;
 import com.desafioevaristo.spring.entities.Os;
 import com.desafioevaristo.spring.service.OsService;
 
@@ -25,9 +27,8 @@ public class OsController {
 	private OsService osService;
 	
 	@GetMapping
-	public List<Os> OsAll(){
-		List<Os> os = osService.findAll();
-		return os;
+	public List<OsDTO> OsAll(){
+		return osService.findAll().stream().map(x -> new OsDTO(x)).collect(Collectors.toList());
 	}
 	
 	@GetMapping("/{id}")
