@@ -47,7 +47,7 @@ public class UserController {
 		if(userService.existsUserAccountByEmail(userAccount.getEmail())) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Email ja Cadastrado!");
 		}
-			return ResponseEntity.status(HttpStatus.OK).body(userService.createUser(userAccount));
+			return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(userAccount));
 	}
 	
 	@PutMapping("/user/{id}")

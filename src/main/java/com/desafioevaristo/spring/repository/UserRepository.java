@@ -7,4 +7,6 @@ import com.desafioevaristo.spring.entities.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 	boolean existsUserByEmail(String email);
+
+	User findByEmail(String email);
 }
