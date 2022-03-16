@@ -2,6 +2,7 @@ package com.desafioevaristo.spring.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,13 @@ public class OsService {
 			os.setUser(user);
 		}
 		return osRepostitory.save(os);
+	}
+
+	public boolean existsOsById(Long id) {
+		return osRepostitory.existsById(id);
+	}
+	
+	public Optional<Os> findById(Long id){
+		return osRepostitory.findById(id);
 	}
 }
