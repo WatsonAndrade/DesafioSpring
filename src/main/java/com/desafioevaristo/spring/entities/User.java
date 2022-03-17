@@ -1,6 +1,7 @@
 package com.desafioevaristo.spring.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -27,6 +28,9 @@ public class User implements Serializable{
 	private Long id;
 	private String name;
 	private String email;
+	private String password;
+	private LocalDate birthdate;
+	
 	private LocalDateTime createDate;
 	
 	@PrePersist

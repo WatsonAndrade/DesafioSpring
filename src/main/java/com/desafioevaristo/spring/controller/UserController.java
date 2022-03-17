@@ -1,6 +1,7 @@
 package com.desafioevaristo.spring.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.desafioevaristo.spring.dto.UserDTO;
 import com.desafioevaristo.spring.entities.User;
 import com.desafioevaristo.spring.repository.UserRepository;
 import com.desafioevaristo.spring.service.UserService;
@@ -29,9 +31,8 @@ public class UserController {
 	private UserService userService;
 	
 	@GetMapping("/user")
-	public List<User> UsersAll(){
-		List<User> user = userRepository.findAll();
-		return user;
+	public List<UserDTO> UsersAll(){
+		return userRepository.findAll().stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
 	}
 
 	@GetMapping("/user/{id}")

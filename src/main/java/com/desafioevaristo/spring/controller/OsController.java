@@ -28,15 +28,15 @@ public class OsController {
 	
 	@GetMapping
 	public List<OsDTO> OsAll(){
-		return osService.findAll().stream().map(x -> new OsDTO(x)).collect(Collectors.toList());
+			return osService.findAll().stream().map(x -> new OsDTO(x)).collect(Collectors.toList());	
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Object> findById(@PathVariable Long id){
-		if (osService.existsOsById(id)) {
-			return ResponseEntity.status(HttpStatus.OK).body(osService.findById(id));
-		}
+		if (!osService.existsOsById(id)) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Os não encontrado!");
+		}	
+			return ResponseEntity.status(HttpStatus.OK).body(osService.findById(id));
 	}
 
 	@PostMapping

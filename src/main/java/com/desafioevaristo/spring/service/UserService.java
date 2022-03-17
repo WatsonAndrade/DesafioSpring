@@ -4,9 +4,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.desafioevaristo.spring.dto.UserDTO;
 import com.desafioevaristo.spring.entities.User;
 import com.desafioevaristo.spring.repository.UserRepository;
 
@@ -16,8 +18,15 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	public List<User> findAll(){
 		return userRepository.findAll();
+	}
+	
+	public UserDTO userDto(User user) {
+		return modelMapper.map(user, UserDTO.class);
 	}
 	
 	public boolean existsUserById(Long id) {
