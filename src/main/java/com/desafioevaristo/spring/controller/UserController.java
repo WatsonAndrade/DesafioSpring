@@ -54,7 +54,10 @@ public class UserController {
 	@PutMapping("/user/{id}")
 	public ResponseEntity<Object> updateUser(@PathVariable Long id, @RequestBody User userAccount){
 		Boolean existsByid = userService.existsUserById(id);
-		if (existsByid) {
+		if (userService.existsUserAccountByEmail(userAccount.getEmail())) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Email já Cadastrado, por favor utiliar outro email!");
+		}
+		else if (existsByid ) {
 			return ResponseEntity.status(HttpStatus.OK).body(userService.updateUser(id, userAccount));
 		}
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado!");
