@@ -10,6 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,9 +30,13 @@ public class User implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotNull(message = "O campo nome não pode ser nulo") @NotEmpty
 	private String name;
+	@NotNull(message = "O campo email não pode ser nulo") @NotEmpty
 	private String email;
+	@NotNull(message = "O campo senha não pode ser nulo") @Length(min = 6, max = 18) @NotEmpty
 	private String password;
+	@NotNull(message = "O campo data de nascimento não pode ser nulo")
 	private LocalDate birthdate;
 	
 	private LocalDateTime createDate;

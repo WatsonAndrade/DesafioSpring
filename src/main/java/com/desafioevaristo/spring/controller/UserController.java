@@ -3,6 +3,8 @@ package com.desafioevaristo.spring.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +46,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/user")
-	public ResponseEntity<Object> createUser(@RequestBody User userAccount){
+	public ResponseEntity<Object> createUser(@RequestBody @Valid User userAccount){
 		if(userService.existsUserAccountByEmail(userAccount.getEmail())) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Email ja Cadastrado!");
 		}
@@ -52,7 +54,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/user/{id}")
-	public ResponseEntity<Object> updateUser(@PathVariable Long id, @RequestBody User userAccount){
+	public ResponseEntity<Object> updateUser(@PathVariable Long id, @RequestBody @Valid User userAccount){
 		Boolean existsByid = userService.existsUserById(id);
 		if (userService.existsUserAccountByEmail(userAccount.getEmail())) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Email já Cadastrado, por favor utiliar outro email!");
